@@ -25,10 +25,10 @@ div.tooltip {
   width: auto;
   height: auto;
   padding: 5px;
-  font-family: Futura;
+  font-family: sans-serif;
   font: 12px sans-serif ;
-  background: #FCB8C3FF;
-  border: 0px;
+  background: #e5e5e5;
+  border: 1px solid #d3d3d3;
   border-radius: 2px;
   pointer-events: none;
 }
@@ -50,7 +50,12 @@ var x = d3.scaleLinear()
     .rangeRound([0, width])
     .domain([1978, 2018]);
 
-var color = d3.scaleOrdinal(d3.schemeCategory10);
+function color(d) {
+  if (d.Luxury = 1) {
+    return "red";
+  }
+  return "blue";
+};
 
 //set up svg
 var svg = d3.select("body")
@@ -77,7 +82,8 @@ function update(){
   d3.csv(dataFile, function(data) {
     data.forEach(function(d) {
         d.MakeModel = d.MakeModel
-        d.Year = +d.Year;
+        d.Year = +d.Year
+        d.Luxury = +d.Luxury;
     });
 
     //histogram binning
@@ -122,7 +128,12 @@ function update(){
           .duration(500)
           .attr("r", function(d) {
           return (d.length==0) ? 0 : d.radius; })
-        .style("fill", function(d) { return color(d.Luxury); })
+        .style("fill", function(d) {
+          if (d[2] = 1) {
+            return "green";
+          } else {
+            return "blue";
+        }})
 
     binContainerEnter.merge(binContainer)
         .attr("transform", d => `translate(${x(d.x0)}, ${height})`)
