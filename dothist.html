@@ -51,7 +51,7 @@ var x = d3.scaleLinear()
     .domain([1978, 2018]);
 
 var z = d3.scaleOrdinal()
-    .range(["#98abc5", "#8a89a6"]);
+    .range(["#d3d3d3", "#8a89a6"]);
 
 //set up svg
 var svg = d3.select("body")
@@ -109,7 +109,8 @@ function update(){
         .data(d => d.map((p, i) => {
           return {idx: i,
                   name: p.MakeModel,
-                  value: p.Year,
+                  year: p.Year,
+                  luxury: p.Luxury,
                   radius: 5
                 }
         }))
@@ -126,7 +127,7 @@ function update(){
           .duration(500)
           .attr("r", function(d) {
           return (d.length==0) ? 0 : d.radius; })
-        .style("fill", function(d) { return z(d.key); });
+        .style("fill", function(d) { return z(d.luxury); });
 
     binContainerEnter.merge(binContainer)
         .attr("transform", d => `translate(${x(d.x0)}, ${height})`)
@@ -147,7 +148,7 @@ function tooltipOn(d) {
   tooltip.transition()
        .duration(200)
        .style("opacity", 1);
-  tooltip.html(d.MakeModel + "<br/> (" + d.Year + ")")
+  tooltip.html(d.year + " " + d.name)
     .style("left", gX + "px")
     .style("top", gY + "px");
 }//tooltipOn
