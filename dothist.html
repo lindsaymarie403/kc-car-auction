@@ -79,7 +79,7 @@ function update(){
     data.forEach(function(d) {
         d.MakeModel = d.MakeModel
         d.Year = +d.Year
-        d.Luxury = +d.Luxury;
+        d.Luxury = d.Luxury;
     });
 
     z.domain(data.map(function(d) { return d.Luxury; }));
