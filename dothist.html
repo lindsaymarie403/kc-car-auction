@@ -45,17 +45,13 @@ var margin = {top: 10, right: 30, bottom: 30, left: 30},
       width = 550 - margin.left - margin.right,
       height = 480 - margin.top - margin.bottom;
 
-//x scales
+//scales
 var x = d3.scaleLinear()
     .rangeRound([0, width])
     .domain([1978, 2018]);
 
-function color(d) {
-  if (d.Luxury = 1) {
-    return "red";
-  }
-  return "blue";
-};
+var z = d3.scaleOrdinal()
+    .range(["#98abc5", "#8a89a6"]);
 
 //set up svg
 var svg = d3.select("body")
@@ -85,6 +81,8 @@ function update(){
         d.Year = +d.Year
         d.Luxury = +d.Luxury;
     });
+
+    z.domain(data.map(function(d) { return d.Luxury; }));
 
     //histogram binning
     var histogram = d3.histogram()
@@ -128,12 +126,7 @@ function update(){
           .duration(500)
           .attr("r", function(d) {
           return (d.length==0) ? 0 : d.radius; })
-        .style("fill", function(d) {
-          if (d[2] = 1) {
-            return "green";
-          } else {
-            return "blue";
-        }})
+        .style("fill", function(d) { return z(d.key); });
 
     binContainerEnter.merge(binContainer)
         .attr("transform", d => `translate(${x(d.x0)}, ${height})`)
