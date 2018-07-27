@@ -165,7 +165,7 @@ function tooltipOff(d) {
 svg.append("g")
   .attr("class", "axis axis--x")
   .attr("transform", "translate(0," + height + ")")
-  .call(d3.axisBottom(x));
+  .call(d3.axisBottom(x).tickFormat(d3.format("d")));
 
 //draw everything
 update();
