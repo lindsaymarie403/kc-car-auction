@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<style>
+
+div.tooltip {
+  color: black;
+  position: absolute;
+  text-align: left;
+  width: auto;
+  height: auto;
+  padding: 5px;
+  font-family: sans-serif;
+  font: 12px sans-serif ;
+  background: #e5e5e5;
+  border: 1px solid #d3d3d3;
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+</style>
+
+<body>
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+
+<script>
+
+//SVG setup
+var margin1 = {top: 10, right: 30, bottom: 30, left: 50},
+      width1 = 450 - margin1.left - margin1.right,
+      height1 = 200 - margin1.top - margin1.bottom;
+
+//scales
+var x1 = d3.scaleLinear()
+    .rangeRound([0, width1])
+    .domain([1952, 1980]);
+
+//set up svg
+var svg1 = d3.select("body")
+  .append("svg")
+    .attr("width", width1 + margin1.left + margin1.right)
+    .attr("height", height1 + margin1.top + margin1.bottom)
+  .append("g")
+    .attr("transform",
+            `translate(${margin1.left}, ${margin1.top})`);
+
+//tooltip
+var tooltip = d3.select("body")
+  .append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+
+var dataFile = "carsleft.csv"
+
+//number of bins for histogram
+var nbins = 28;
+
+// Get the data
+d3.csv(dataFile, function(data) {
+  data.forEach(function(d) {
+      d.MakeModel = d.MakeModel
+      d.Year = +d.Year
+      d.Luxury = d.Luxury;
+  });
+
+  //histogram binning
+  var histogram = d3.histogram()
+    .domain(x1.domain())
+    .thresholds(x1.ticks(nbins))
+    .value(function(d) { return d.Year;} );
+
+  //binning data and filtering out empty bins
+  var bins = histogram(data).filter(d => d.length>0)
+
+  //g container for each bin
+  let binContainer = svg1.selectAll(".gBin")
+    .data(bins);
+
+  let binContainerEnter = binContainer.enter()
+    .append("g")
+      .attr("class", "gBin")
+      .attr("transform", d => `translate(${x1(d.x0)}, ${height1})`)
+
+  //need to populate the bin containers with data
+  binContainerEnter.selectAll("rect")
+      .data(d => d.map((p, i) => {
+        return {idx: i,
+                name: p.MakeModel,
+                year: p.Year,
+                reason: p.Reason
+              }
+      }))
+    .enter()
+    .append("rect")
+      .attr("class", "enter")
+      .attr("x", 0) //g element already at correct x pos
+      .attr("y", function(d) {
+          return - d.idx * 12 - 12; })
+      //.attr("r", function(d) {
+      //return (d.length==0) ? 0 : d.radius; })
+      .attr("width", 10)
+      .attr("height", 10)
+      .on("mouseover", tooltipOn)
+      .on("mouseout", tooltipOff)
+      .style("fill", "#8a89a6");
+
+  binContainerEnter.merge(binContainer)
+      .attr("transform", d => `translate(${x1(d.x0)}, ${height1})`)
+
+});//d3.csv
+
+function tooltipOn(d) {
+  //x position of parent g element
+  let gParent = d3.select(this.parentElement)
+  let translateValue = gParent.attr("transform")
+
+  let gX = translateValue.split(",")[0].split("(")[1]
+  let gY = height1 + (+d3.select(this).attr("y")-25)
+
+  d3.select(this)
+    .classed("selected", true)
+  tooltip.transition()
+       .duration(200)
+       .style("opacity", 1);
+  tooltip.html(d.year + " " + d.name + "<br/> (" + d.reason + ")")
+    .style("left", gX + "px")
+    .style("top", gY + "px");
+}//tooltipOn
+
+function tooltipOff(d) {
+  d3.select(this)
+      .classed("selected", false);
+    tooltip.transition()
+         .duration(500)
+         .style("opacity", 0);
+}//tooltipOff
+
+// add x axis
+svg1.append("g")
+  .attr("class", "axis axis--x")
+  .attr("transform", "translate(0," + height1 + ")")
+  .call(d3.axisBottom(x1).tickFormat(d3.format("d")));
+
+// thanks to this bl.ock for the help starting out: https://bl.ocks.org/gcalmettes/95e3553da26ec90fd0a2890a678f3f69
+
+//SVG setup
+var margin = {top: 10, right: 30, bottom: 30, left: 25},
+      width = 800 - margin.left - margin.right,
+      height = 300 - margin.top - margin.bottom;
+
+var x = d3.scaleLinear()
+    .domain([1952, 2018])
+    .range([margin.left, width - margin.right]);
+
+var y = d3.scaleLinear()
+    .domain([0, 0.08])
+    .range([height - margin.bottom, margin.top]);
+
+//set up svg
+var svg2 = d3.select("body")
+  .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform",
+            `translate(${margin.left}, ${margin.top})`);
+
+// x axis
+svg2.append("g")
+    .attr("class", "axis axis--x")
+    .attr("transform", "translate(0," + (height - margin.bottom) + ")")
+    .call(d3.axisBottom(x).tickFormat(d3.format("d")));
+
+//svg2.append("g")
+    //.attr("class", "axis axis--y")
+    //.attr("transform", "translate(" + margin.left + ",0)")
+    //.call(d3.axisLeft(y).ticks(null, "%"));
+
+var dataFile = "allcars.csv"
+
+var nbins = 67; //number of bins for histogram
+
+d3.csv(dataFile, function(data) {
+  data.forEach(function(d) {
+      d.Year = +d.Year
+      d.MakeModel = d.MakeModel
+      d.Reason = d.Reason;
+  });
+
+  //histogram binning
+  var histogram = d3.histogram()
+    .domain(x.domain())
+    .thresholds(x.ticks(nbins))
+    .value(function(d) { return d.Year;} );
+
+  //binning data and filtering out empty bins
+  var bins = histogram(data).filter(d => d.length>0)
+
+  svg2.insert("g", "*")
+      .attr("fill", "#8a89a6")
+    .selectAll("rect")
+    .data(bins)
+    .enter().append("rect")
+      .attr("x", function(d) { return x(d.x0) + 1; })
+      .attr("y", function(d) { return y(d.length / data.length) - 2; })
+      .attr("width", function(d) { return x(d.x1) - x(d.x0) - 1; })
+      .attr("height", function(d) { return y(0) - y(d.length / data.length); });
+
+});
+
+// thanks to this block for help: https://bl.ocks.org/mbostock/4341954
+
+</script>
+</body>
+</html>
