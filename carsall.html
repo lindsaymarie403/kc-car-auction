@@ -26,14 +26,14 @@ div.tooltip {
 
 <script>
 //set up for overall svg
-var margin = {top: 30, right: 30, bottom: 30, left: 25},
+var margin = {top: 50, right: 30, bottom: 30, left: 25},
       width = 800 - margin.left - margin.right,
-      height = 475 - margin.top - margin.bottom;
+      height = 525 - margin.top - margin.bottom;
 
 //set up for left zoom graph
 var margin1 = {top: 0, right: 30, bottom: 0, left: 25},
       width1 = 450 - margin1.left - margin1.right,
-      height1 = 200 - margin1.top - margin1.bottom;
+      height1 = 350 - margin1.top - margin1.bottom;
 
 //set up for right zoom graph
 var margin2 = {top: 10, right: 30, bottom: 0, left: 50},
@@ -266,22 +266,22 @@ d3.csv(dataFile2, function(data2) {
       //return (d.length==0) ? 0 : d.radius; })
       .attr("width", 10)
       .attr("height", 10)
-      .on("mouseover", tooltipOn)
-      .on("mouseout", tooltipOff)
+      .on("mouseover", tooltipOn2)
+      .on("mouseout", tooltipOff2)
       .style("fill", "#8a89a6");
 
   binContainerEnter2.merge(binContainer2)
-      .attr("transform", d => `translate(${x2(d.x0)+700}, ${height2})`)
+      .attr("transform", d => `translate(${x2(d.x0)+665}, ${height2})`)
 
 });//d3.csv
 
-function tooltipOn(d) {
+function tooltipOn2(d) {
   //x position of parent g element
   let gParent = d3.select(this.parentElement)
   let translateValue = gParent.attr("transform")
 
   let gX = translateValue.split(",")[0].split("(")[1]
-  let gY = height + (+d3.select(this).attr("y")-80)
+  let gY = height + (+d3.select(this).attr("y")-100)
 
   d3.select(this)
     .classed("selected", true)
@@ -293,7 +293,7 @@ function tooltipOn(d) {
     .style("top", gY + "px");
 }//tooltipOn
 
-function tooltipOff(d) {
+function tooltipOff2(d) {
   d3.select(this)
       .classed("selected", false);
     tooltip.transition()
@@ -304,7 +304,7 @@ function tooltipOff(d) {
 // add x axis
 svg.append("g")
   .attr("class", "axis axis--x")
-  .attr("transform", "translate(700," + (height2 - margin2.bottom) + ")")
+  .attr("transform", "translate(665," + (height2 - margin2.bottom) + ")")
   .call(d3.axisBottom(x2).tickFormat(d3.format("d")).ticks(1));
 
 // thanks to this block for help: https://bl.ocks.org/mbostock/4341954
