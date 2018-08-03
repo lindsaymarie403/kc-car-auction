@@ -1,9 +1,21 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
+
 <style>
 
-.axis--y .domain {
-  display: none;
+div.tooltip {
+  color: black;
+  position: absolute;
+  text-align: left;
+  width: auto;
+  height: auto;
+  padding: 5px;
+  font-family: sans-serif;
+  font: 12px sans-serif ;
+  background: #e5e5e5;
+  border: 1px solid #d3d3d3;
+  border-radius: 2px;
+  pointer-events: none;
 }
 
 </style>
@@ -74,7 +86,7 @@ d3.csv(dataFile, function(data) {
     .data(bins)
     .enter().append("rect")
       .attr("x", function(d) { return x(d.x0) + 1; })
-      .attr("y", function(d) { return y(d.length / data.length); })
+      .attr("y", function(d) { return y(d.length / data.length) - 2; })
       .attr("width", function(d) { return x(d.x1) - x(d.x0) - 1; })
       .attr("height", function(d) { return y(0) - y(d.length / data.length); });
 

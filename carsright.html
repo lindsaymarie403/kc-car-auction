@@ -26,13 +26,13 @@ div.tooltip {
 
 //SVG setup
 var margin = {top: 10, right: 30, bottom: 30, left: 30},
-      width = 400 - margin.left - margin.right,
-      height = 180 - margin.top - margin.bottom;
+      width = 100 - margin.left - margin.right,
+      height = 400 - margin.top - margin.bottom;
 
 //scales
 var x = d3.scaleLinear()
     .rangeRound([0, width])
-    .domain([1952, 1980]);
+    .domain([2015, 2018]);
 
 //set up svg
 var svg = d3.select("body")
@@ -49,10 +49,10 @@ var tooltip = d3.select("body")
     .attr("class", "tooltip")
     .style("opacity", 0);
 
-var dataFile = "carsleft.csv"
+var dataFile = "carsright.csv"
 
 //number of bins for histogram
-var nbins = 28;
+var nbins = 3;
 
 function update(){
   // Get the data
@@ -140,14 +140,14 @@ function tooltipOff(d) {
 svg.append("g")
   .attr("class", "axis axis--x")
   .attr("transform", "translate(0," + height + ")")
-  .call(d3.axisBottom(x).tickFormat(d3.format("d")));
+  .call(d3.axisBottom(x).tickFormat(d3.format("d")).ticks(1));
 
 //draw everything
 update();
 
-// thanks to this bl.ock for the help starting out: https://bl.ocks.org/gcalmettes/95e3553da26ec90fd0a2890a678f3f69
-
 </script>
+
+<!--thanks to this bl.ock for the help starting out: https://bl.ocks.org/gcalmettes/95e3553da26ec90fd0a2890a678f3f69-->
 
 </body>
 </html>
