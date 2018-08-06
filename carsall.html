@@ -57,7 +57,7 @@ var margin1 = {top: 0, right: 30, bottom: 0, left: 25},
       height1 = 325 - margin1.top - margin1.bottom;
 
 //set up for right zoom graph
-var margin2 = {top: 10, right: 30, bottom: 0, left: 50},
+var margin2 = {top: 0, right: 30, bottom: 0, left: 50},
       width2 = 120 - margin2.left - margin2.right,
       height2 = 325 - margin2.top - margin2.bottom;
 
@@ -100,14 +100,16 @@ var points = [{
    },{
      x: 395, y: 326 //top right
    },{
-     x: 305, y: 410 //bottom right
+     x: 325, y: 410 //bottom right
    },{
-     x: 0, y: 410 //bottom left
+     x: 47, y: 410 //bottom left
    }];
 
- svg.append('path')
-   .attr("d", line(points) + 'Z')
-   .style("fill", "#fff3ba");
+svg.append('path')
+ .attr("d", line(points) + 'Z')
+ .attr("fill", "url(#svgGradient)")
+ .style("stroke", "#969696")
+ .style("opacity", 0.3);
 
 var svg3 = d3.select('svg')
   .append('svg')
@@ -123,18 +125,42 @@ var line = d3.line()
   });
 
 var points = [{
-    x: 665, y: 315 //top left
+    x: 665, y: 326 //top left
   },{
-    x: 715, y: 315 //top right
+    x: 715, y: 326 //top right
   },{
-    x: 715, y: 410 //bottom right
+    x: 707, y: 410 //bottom right
   },{
-    x: 680, y: 410 //bottom left
+    x: 677, y: 410 //bottom left
   }];
 
 svg.append('path')
   .attr("d", line(points) + 'Z')
-  .style("fill", "#fff3ba");
+  .attr("fill", "url(#svgGradient)")
+  .style("stroke", "#969696")
+  .style("opacity", 0.3);
+
+// define gradient
+var defs = svg.append("defs");
+
+var gradient = defs.append("linearGradient")
+ .attr("id", "svgGradient")
+ .attr("x1", "0%")
+ .attr("x2", "0%")
+ .attr("y1", "0%")
+ .attr("y2", "100%");
+
+gradient.append("stop")
+ .attr('class', 'start')
+ .attr("offset", "0%")
+ .attr("stop-color", "#f7f7f7")
+ .attr("stop-opacity", 1);
+
+gradient.append("stop")
+ .attr('class', 'end')
+ .attr("offset", "100%")
+ .attr("stop-color", "#b5b5b5")
+ .attr("stop-opacity", 1);
 
 // LEFT GRAPH
 //scales
@@ -240,7 +266,7 @@ svg.append("g")
 //MIDDLE GRAPH
 var x = d3.scaleLinear()
     .domain([1952, 2018])
-    .range([margin.left-25, width - margin.right]);
+    .range([margin.left+20, width - (margin.right+8)]);
 
 var y = d3.scaleLinear()
     .domain([0, 0.08])
