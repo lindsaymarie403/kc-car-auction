@@ -80,6 +80,62 @@ var borderPath = svg.append("rect")
 	.style("fill", "none")
 	.style("stroke-width", 1);
 
+
+//ZOOM SHAPES
+var svg2 = d3.select('svg')
+   .append('svg')
+   .attr('width', 500)
+   .attr('height', 500);
+
+var line = d3.line()
+   .x(function(d) {
+     return d.x;
+   })
+   .y(function(d) {
+     return d.y;
+   });
+
+var points = [{
+     x: 0, y: 326 //top left
+   },{
+     x: 395, y: 326 //top right
+   },{
+     x: 305, y: 410 //bottom right
+   },{
+     x: 0, y: 410 //bottom left
+   }];
+
+ svg.append('path')
+   .attr("d", line(points) + 'Z')
+   .style("fill", "#fff3ba");
+
+var svg3 = d3.select('svg')
+  .append('svg')
+  .attr('width', 500)
+  .attr('height', 500);
+
+var line = d3.line()
+  .x(function(d) {
+    return d.x;
+  })
+  .y(function(d) {
+    return d.y;
+  });
+
+var points = [{
+    x: 665, y: 315 //top left
+  },{
+    x: 715, y: 315 //top right
+  },{
+    x: 715, y: 410 //bottom right
+  },{
+    x: 680, y: 410 //bottom left
+  }];
+
+svg.append('path')
+  .attr("d", line(points) + 'Z')
+  .style("fill", "#fff3ba");
+
 // LEFT GRAPH
 //scales
 var x1 = d3.scaleLinear()
@@ -336,10 +392,12 @@ svg.append("g")
   .attr("transform", "translate(665," + (height2 - margin2.bottom) + ")")
   .call(d3.axisBottom(x2).tickFormat(d3.format("d")).ticks(1));
 
-// thanks to these blocks for help:
+
+// thanks to these resources for help:
 // https://bl.ocks.org/mbostock/4341954
 // http://bl.ocks.org/AndrewStaroscik/5222370
 // https://bl.ocks.org/gcalmettes/95e3553da26ec90fd0a2890a678f3f69
+// https://stackoverflow.com/questions/33735487/create-trapezoid-using-d3-svg-area
 
 </script>
 </body>
