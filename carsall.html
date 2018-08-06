@@ -100,9 +100,9 @@ var points = [{
    },{
      x: 395, y: 326 //top right
    },{
-     x: 325, y: 410 //bottom right
+     x: 335, y: 410 //bottom right
    },{
-     x: 47, y: 410 //bottom left
+     x: 60, y: 410 //bottom left
    }];
 
 svg.append('path')
@@ -237,7 +237,7 @@ function tooltipOn(d) {
   let translateValue = gParent.attr("transform")
 
   let gX = translateValue.split(",")[0].split("(")[1]
-  let gY = height1 + (+d3.select(this).attr("y")+5)
+  let gY = height1 + (+d3.select(this).attr("y")+15)
 
   d3.select(this)
     .classed("selected", true)
@@ -266,7 +266,7 @@ svg.append("g")
 //MIDDLE GRAPH
 var x = d3.scaleLinear()
     .domain([1952, 2018])
-    .range([margin.left+20, width - (margin.right+8)]);
+    .range([margin.left+35, width - (margin.right+8)]);
 
 var y = d3.scaleLinear()
     .domain([0, 0.08])
@@ -417,6 +417,9 @@ svg.append("g")
   .attr("class", "axis axis--x")
   .attr("transform", "translate(665," + (height2 - margin2.bottom) + ")")
   .call(d3.axisBottom(x2).tickFormat(d3.format("d")).ticks(1));
+
+//RESPONSIVE
+
 
 
 // thanks to these resources for help:
