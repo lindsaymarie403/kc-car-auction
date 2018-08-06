@@ -28,7 +28,7 @@ body {
 }
 
 .three {
-  width: 25%;
+  width: 30%;
 }
 
 .four {
@@ -38,14 +38,20 @@ body {
 .spark {
   width: 120px;
   background-color: #f7f7f7;
-  float: right;
+  float: left;
 }
 
 .header {
   font-weight: 700;
 }
 
-@media only screen and (max-width: 600px) {
+.sub {
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: .7em;
+}
+
+@media only screen and (max-width: 625px) {
   .one {
     width: 30%;
   }
@@ -55,15 +61,18 @@ body {
   }
 
   .three {
-    width: 30%;
+    width: 35%;
   }
 
   .four {
-    width: 20%;
+    width: 15%;
   }
-    .spark {
-        display: none;
-    }
+  .five {
+    display: none;
+  }
+  .spark {
+      display: none;
+  }
 }
 
 </style>
@@ -74,8 +83,14 @@ body {
       <div class="cell header one">Brand or Vehicle</div>
       <div class="cell header two">Count</div>
       <div class="cell header three">Top Reason for Towing</div>
-      <div class="cell header four">Average Year</div>
-      <div class="cell header spark"></div>
+      <div class="cell header four">Year
+        <br />
+        <span class="sub">Average</span>
+      </div>
+      <div class="cell header five">
+        <br />
+        <span class="sub">Distribution</span>
+      </div>
     </div>
     <div class="row">
       <div class="cell one">Cadillac</div>
@@ -96,84 +111,35 @@ body {
       <div class="cell two">38</div>
       <div class="cell three">Abandoned</div>
       <div class="cell four">1999</div>
+      <div class="cell spark third"></div>
     </div>
     <div class="row">
       <div class="cell one">BMW</div>
       <div class="cell two">37</div>
       <div class="cell three">Abandoned</div>
       <div class="cell four">2001</div>
+      <div class="cell spark fourth"></div>
     </div>
     <div class="row">
       <div class="cell one">Infiniti</div>
       <div class="cell two">35</div>
       <div class="cell three">Accident</div>
       <div class="cell four">2001</div>
-    </div>
-    <div class="row">
-      <div class="cell one">Trailer</div>
-      <div class="cell two">33</div>
-      <div class="cell three">Abandoned</div>
-      <div class="cell four">2003</div>
+      <div class="cell spark fifth"></div>
     </div>
     <div class="row">
       <div class="cell one">Audi</div>
       <div class="cell two">18</div>
       <div class="cell three">Abandoned</div>
       <div class="cell four">2002</div>
+      <div class="cell spark seventh"></div>
     </div>
     <div class="row">
       <div class="cell one">Jaguar</div>
       <div class="cell two">8</div>
       <div class="cell three">Abandoned</div>
       <div class="cell four">1998</div>
-    </div>
-    <div class="row">
-      <div class="cell one">Harley-Davidson</div>
-      <div class="cell two">5</div>
-      <div class="cell three">Abandoned</div>
-      <div class="cell four">2005</div>
-    </div>
-    <div class="row">
-      <div class="cell one">Motor Home</div>
-      <div class="cell two">4</div>
-      <div class="cell three">Abandoned</div>
-      <div class="cell four">1991</div>
-    </div>
-    <div class="row">
-      <div class="cell one">MINI</div>
-      <div class="cell two">3</div>
-      <div class="cell three">Accident</div>
-      <div class="cell four">2007</div>
-    </div>
-    <div class="row">
-      <div class="cell one">Motorcycle</div>
-      <div class="cell two">1</div>
-      <div class="cell three">Abandoned</div>
-      <div class="cell four">2000</div>
-    </div>
-    <div class="row">
-      <div class="cell one">Boat</div>
-      <div class="cell two">1</div>
-      <div class="cell three">Abandoned</div>
-      <div class="cell four">1988</div>
-    </div>
-    <div class="row">
-      <div class="cell one">Vespa</div>
-      <div class="cell two">1</div>
-      <div class="cell three">Stolen</div>
-      <div class="cell four">2015</div>
-    </div>
-    <div class="row">
-      <div class="cell one">Porsche</div>
-      <div class="cell two">1</div>
-      <div class="cell three">Other</div>
-      <div class="cell four">1983</div>
-    </div>
-    <div class="row">
-      <div class="cell one">smart</div>
-      <div class="cell two">1</div>
-      <div class="cell three">Arrest</div>
-      <div class="cell four">2010</div>
+      <div class="cell spark eighth"></div>
     </div>
   </div>
 
@@ -187,7 +153,7 @@ var margin = {top: 5, right: 0, bottom: 0, left: 0},
       height = 25 - margin.top - margin.bottom;
 
 var x = d3.scaleLinear()
-    .domain([1973, 2018])
+    .domain([1973, 2019])
     .range([margin.left, width - margin.right]);
 
 var y = d3.scaleLinear()
@@ -209,7 +175,7 @@ svg.append("g")
     .attr("transform", "translate(0," + (height - margin.bottom) + ")")
     .call(d3.axisBottom(x).ticks(0).tickSizeOuter(0));
 
-var dataFile = "cadillac.csv"
+var dataFile = "data/cadillac.csv"
 
 //number of bins for histogram
 var nbins = 46;
@@ -229,12 +195,12 @@ d3.csv(dataFile, function(data) {
   var bins = histogram(data).filter(d => d.length>0)
 
   svg.insert("g", "*")
-      .attr("fill", "#8a89a6")
+      .attr("fill", "#355699")
     .selectAll("rect")
     .data(bins)
     .enter().append("rect")
-      .attr("x", function(d) { return x(d.x0) + 1; })
-      .attr("y", function(d) { return y(d.length / data.length) - 2; })
+      .attr("x", function(d) { return x(d.x0); })
+      .attr("y", function(d) { return y(d.length / data.length); })
       .attr("width", function(d) { return x(d.x1) - x(d.x0) - .5; })
       .attr("height", function(d) { return y(0) - y(d.length / data.length); });
 
@@ -250,7 +216,7 @@ var margin2 = {top: 5, right: 0, bottom: 0, left: 0},
       height2 = 25 - margin2.top - margin2.bottom;
 
 var x2 = d3.scaleLinear()
-    .domain([1973, 2018])
+    .domain([1973, 2019])
     .range([margin2.left, width2 - margin2.right]);
 
 var y2 = d3.scaleLinear()
@@ -268,7 +234,7 @@ var svg2 = d3.select(".second")
 
 
 
-var dataFile2 = "lexus.csv"
+var dataFile2 = "data/lexus.csv"
 
 //number of bins for histogram
 var nbins2 = 46;
@@ -288,14 +254,299 @@ d3.csv(dataFile2, function(data2) {
   var bins2 = histogram2(data2).filter(d => d.length>0)
 
   svg2.insert("g", "*")
-      .attr("fill", "#8a89a6")
+      .attr("fill", "#355699")
     .selectAll("rect")
     .data(bins2)
     .enter().append("rect")
-      .attr("x", function(d) { return x2(d.x0) + 1; })
-      .attr("y", function(d) { return y2(d.length / data2.length) - 2; })
+      .attr("x", function(d) { return x2(d.x0); })
+      .attr("y", function(d) { return y2(d.length / data2.length); })
       .attr("width", function(d) { return x2(d.x1) - x2(d.x0) - .5; })
       .attr("height", function(d) { return y2(0) - y2(d.length / data2.length); });
+
+});
+
+</script>
+
+<script>
+
+//SVG setup
+var margin3 = {top: 5, right: 0, bottom: 0, left: 0},
+      width3 = 120 - margin3.left - margin3.right,
+      height3 = 25 - margin3.top - margin3.bottom;
+
+var x3 = d3.scaleLinear()
+    .domain([1973, 2019])
+    .range([margin3.left, width3 - margin3.right]);
+
+var y3 = d3.scaleLinear()
+    .domain([0, 0.1])
+    .range([height3 - margin3.bottom, margin3.top]);
+
+//set up svg
+var svg3 = d3.select(".third")
+  .append("svg")
+    .attr("width", width3 + margin3.left + margin3.right)
+    .attr("height", height3 + margin3.top + margin3.bottom)
+  .append("g")
+    .attr("transform",
+            `translate(${margin3.left}, ${margin3.top})`);
+
+var dataFile3 = "data/mercedes.csv"
+
+//number of bins for histogram
+var nbins3 = 46;
+
+d3.csv(dataFile3, function(data3) {
+  data3.forEach(function(d) {
+      d.Year = +d.Year;
+  });
+
+  //histogram binning
+  var histogram3 = d3.histogram()
+    .domain(x3.domain())
+    .thresholds(x3.ticks(nbins3))
+    .value(function(d) { return d.Year;} );
+
+  //binning data and filtering out empty bins
+  var bins3 = histogram3(data3).filter(d => d.length>0)
+
+  svg3.insert("g", "*")
+      .attr("fill", "#355699")
+    .selectAll("rect")
+    .data(bins3)
+    .enter().append("rect")
+      .attr("x", function(d) { return x3(d.x0); })
+      .attr("y", function(d) { return y3(d.length / data3.length); })
+      .attr("width", function(d) { return x3(d.x1) - x3(d.x0) - .5; })
+      .attr("height", function(d) { return y3(0) - y3(d.length / data3.length); });
+
+});
+
+</script>
+
+<script>
+
+//SVG setup
+var margin4 = {top: 5, right: 0, bottom: 0, left: 0},
+      width4 = 120 - margin4.left - margin4.right,
+      height4 = 25 - margin4.top - margin4.bottom;
+
+var x4 = d3.scaleLinear()
+    .domain([1973, 2019])
+    .range([margin4.left, width4 - margin4.right]);
+
+var y4 = d3.scaleLinear()
+    .domain([0, 0.1])
+    .range([height4 - margin4.bottom, margin4.top]);
+
+//set up svg
+var svg4 = d3.select(".fourth")
+  .append("svg")
+    .attr("width", width4 + margin4.left + margin4.right)
+    .attr("height", height4 + margin4.top + margin4.bottom)
+  .append("g")
+    .attr("transform",
+            `translate(${margin4.left}, ${margin4.top})`);
+
+var dataFile4 = "data/bmw.csv"
+
+//number of bins for histogram
+var nbins4 = 46;
+
+d3.csv(dataFile4, function(data4) {
+  data4.forEach(function(d) {
+      d.Year = +d.Year;
+  });
+
+  //histogram binning
+  var histogram4 = d3.histogram()
+    .domain(x4.domain())
+    .thresholds(x4.ticks(nbins4))
+    .value(function(d) { return d.Year;} );
+
+  //binning data and filtering out empty bins
+  var bins4 = histogram4(data4).filter(d => d.length>0)
+
+  svg4.insert("g", "*")
+      .attr("fill", "#355699")
+    .selectAll("rect")
+    .data(bins4)
+    .enter().append("rect")
+      .attr("x", function(d) { return x4(d.x0); })
+      .attr("y", function(d) { return y4(d.length / data4.length); })
+      .attr("width", function(d) { return x4(d.x1) - x4(d.x0) - .5; })
+      .attr("height", function(d) { return y4(0) - y4(d.length / data4.length); });
+
+});
+
+</script>
+
+<script>
+
+//SVG setup
+var margin5 = {top: 5, right: 0, bottom: 0, left: 0},
+      width5 = 120 - margin5.left - margin5.right,
+      height5 = 25 - margin5.top - margin5.bottom;
+
+var x5 = d3.scaleLinear()
+    .domain([1973, 2019])
+    .range([margin5.left, width5 - margin5.right]);
+
+var y5 = d3.scaleLinear()
+    .domain([0, 0.1])
+    .range([height5 - margin5.bottom, margin5.top]);
+
+//set up svg
+var svg5 = d3.select(".fifth")
+  .append("svg")
+    .attr("width", width5 + margin5.left + margin5.right)
+    .attr("height", height5 + margin5.top + margin5.bottom)
+  .append("g")
+    .attr("transform",
+            `translate(${margin5.left}, ${margin5.top})`);
+
+var dataFile5 = "data/infiniti.csv"
+
+//number of bins for histogram
+var nbins5 = 46;
+
+d3.csv(dataFile5, function(data5) {
+  data5.forEach(function(d) {
+      d.Year = +d.Year;
+  });
+
+  //histogram binning
+  var histogram5 = d3.histogram()
+    .domain(x5.domain())
+    .thresholds(x5.ticks(nbins5))
+    .value(function(d) { return d.Year;} );
+
+  //binning data and filtering out empty bins
+  var bins5 = histogram5(data5).filter(d => d.length>0)
+
+  svg5.insert("g", "*")
+      .attr("fill", "#355699")
+    .selectAll("rect")
+    .data(bins5)
+    .enter().append("rect")
+      .attr("x", function(d) { return x5(d.x0); })
+      .attr("y", function(d) { return y5(d.length / data5.length); })
+      .attr("width", function(d) { return x5(d.x1) - x5(d.x0) - .5; })
+      .attr("height", function(d) { return y5(0) - y5(d.length / data5.length); });
+
+});
+
+</script>
+
+<script>
+
+//SVG setup
+var margin7 = {top: 5, right: 0, bottom: 0, left: 0},
+      width7 = 120 - margin7.left - margin7.right,
+      height7 = 25 - margin7.top - margin7.bottom;
+
+var x7 = d3.scaleLinear()
+    .domain([1973, 2019])
+    .range([margin7.left, width7 - margin7.right]);
+
+var y7 = d3.scaleLinear()
+    .domain([0, 0.1])
+    .range([height7 - margin7.bottom, margin7.top]);
+
+//set up svg
+var svg7 = d3.select(".seventh")
+  .append("svg")
+    .attr("width", width7 + margin7.left + margin7.right)
+    .attr("height", height7 + margin7.top + margin7.bottom)
+  .append("g")
+    .attr("transform",
+            `translate(${margin7.left}, ${margin7.top})`);
+
+var dataFile7 = "data/audi.csv"
+
+//number of bins for histogram
+var nbins7 = 46;
+
+d3.csv(dataFile7, function(data7) {
+  data7.forEach(function(d) {
+      d.Year = +d.Year;
+  });
+
+  //histogram binning
+  var histogram7 = d3.histogram()
+    .domain(x7.domain())
+    .thresholds(x7.ticks(nbins7))
+    .value(function(d) { return d.Year;} );
+
+  //binning data and filtering out empty bins
+  var bins7 = histogram7(data7).filter(d => d.length>0)
+
+  svg7.insert("g", "*")
+      .attr("fill", "#355699")
+    .selectAll("rect")
+    .data(bins7)
+    .enter().append("rect")
+      .attr("x", function(d) { return x7(d.x0); })
+      .attr("y", function(d) { return y7(d.length / data7.length); })
+      .attr("width", function(d) { return x7(d.x1) - x7(d.x0) - .5; })
+      .attr("height", function(d) { return y7(0) - y7(d.length / data7.length); });
+
+});
+
+</script>
+
+<script>
+
+//SVG setup
+var margin7 = {top: 5, right: 0, bottom: 0, left: 0},
+      width7 = 120 - margin7.left - margin7.right,
+      height7 = 25 - margin7.top - margin7.bottom;
+
+var x7 = d3.scaleLinear()
+    .domain([1973, 2019])
+    .range([margin7.left, width7 - margin7.right]);
+
+var y7 = d3.scaleLinear()
+    .domain([0, 0.1])
+    .range([height7 - margin7.bottom, margin7.top]);
+
+//set up svg
+var svg8 = d3.select(".eighth")
+  .append("svg")
+    .attr("width", width7 + margin7.left + margin7.right)
+    .attr("height", height7 + margin7.top + margin7.bottom)
+  .append("g")
+    .attr("transform",
+            `translate(${margin7.left}, ${margin7.top})`);
+
+var dataFile8 = "data/jaguar.csv"
+
+//number of bins for histogram
+var nbins7 = 46;
+
+d3.csv(dataFile8, function(data7) {
+  data7.forEach(function(d) {
+      d.Year = +d.Year;
+  });
+
+  //histogram binning
+  var histogram8 = d3.histogram()
+    .domain(x7.domain())
+    .thresholds(x7.ticks(nbins7))
+    .value(function(d) { return d.Year;} );
+
+  //binning data and filtering out empty bins
+  var bins7 = histogram8(data7).filter(d => d.length>0)
+
+  svg8.insert("g", "*")
+      .attr("fill", "#355699")
+    .selectAll("rect")
+    .data(bins7)
+    .enter().append("rect")
+      .attr("x", function(d) { return x7(d.x0); })
+      .attr("y", function(d) { return y7(d.length / data7.length); })
+      .attr("width", function(d) { return x7(d.x1) - x7(d.x0) - .5; })
+      .attr("height", function(d) { return y7(0) - y7(d.length / data7.length); });
 
 });
 
