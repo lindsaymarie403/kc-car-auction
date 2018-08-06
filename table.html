@@ -9,8 +9,20 @@ body {
   font-size: .85em;
 }
 
-.row {
+#title {
+  font-size: 1.2em;
+  font-weight: 700;
+  margin-bottom: -10px;
+}
+
+#table {
+  margin-top: 25px;
   border-top: 1px solid #d3d3d3;
+  margin-bottom: 15px;
+}
+
+.row {
+  border-bottom: 1px solid #d3d3d3;
   overflow: auto;
   padding: 5px;
 }
@@ -20,7 +32,7 @@ body {
 }
 
 .one {
-  width: 25%;
+  width: 20%;
 }
 
 .two {
@@ -32,7 +44,7 @@ body {
 }
 
 .four {
-  width: 10%;
+  width: 15%;
 }
 
 .spark {
@@ -48,6 +60,10 @@ body {
 .sub {
   font-weight: 400;
   text-transform: uppercase;
+  font-size: .7em;
+}
+
+#source {
   font-size: .7em;
 }
 
@@ -78,9 +94,11 @@ body {
 </style>
 
 <body>
+  <p id="title">Living in Luxury</p>
+  <p>Most common luxury brands available at Kansas City Tow Lot auction, August 2017 &ndash; July 2018</p>
   <div id="table">
     <div class="row">
-      <div class="cell header one">Brand or Vehicle</div>
+      <div class="cell header one">Brand</div>
       <div class="cell header two">Count</div>
       <div class="cell header three">Top Reason for Towing</div>
       <div class="cell header four">Year
@@ -142,6 +160,7 @@ body {
       <div class="cell spark eighth"></div>
     </div>
   </div>
+  <div id="source">Source: Kansas City Tow Services (Lindsay Huth | Flatland)</div>
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
 
