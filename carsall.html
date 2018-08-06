@@ -36,6 +36,11 @@ p {
   top: 120px;
 }
 
+#source {
+  font-family: 'Open Sans', sans-serif;
+  font-size: .7em;
+}
+
 </style>
 
 <body>
@@ -224,7 +229,7 @@ d3.csv(dataFile, function(data) {
       .attr("height", 10)
       .on("mouseover", tooltipOn)
       .on("mouseout", tooltipOff)
-      .style("fill", "#8a89a6");
+      .style("fill", "#355699");
 
   binContainerEnter.merge(binContainer)
       .attr("transform", d => `translate(${x1(d.x0)}, ${height1})`)
@@ -304,7 +309,7 @@ d3.csv(dataFile, function(data) {
   var bins = histogram(data).filter(d => d.length>0)
 
   svg.insert("g", "*")
-      .attr("fill", "#8a89a6")
+      .attr("fill", "#355699")
     .selectAll("rect")
     .data(bins)
     .enter().append("rect")
@@ -379,7 +384,7 @@ d3.csv(dataFile2, function(data2) {
       .attr("height", 10)
       .on("mouseover", tooltipOn2)
       .on("mouseout", tooltipOff2)
-      .style("fill", "#8a89a6");
+      .style("fill", "#355699");
 
   binContainerEnter2.merge(binContainer2)
       .attr("transform", d => `translate(${x2(d.x0)+665}, ${height2})`)
@@ -429,5 +434,7 @@ svg.append("g")
 // https://stackoverflow.com/questions/33735487/create-trapezoid-using-d3-svg-area
 
 </script>
+
+<div id="source">Source: Kansas City Tow Services (Lindsay Huth | Flatland)</div>
 </body>
 </html>
