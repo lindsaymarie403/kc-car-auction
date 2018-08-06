@@ -6,22 +6,64 @@
 
 body {
   font-family: 'Open Sans', sans-serif;
-  font-size: .9em;
+  font-size: .85em;
 }
 
 .row {
   border-top: 1px solid #d3d3d3;
-  padding: 10px;
   overflow: auto;
+  padding: 5px;
 }
 
 .cell {
   float: left;
+}
+
+.one {
   width: 25%;
+}
+
+.two {
+  width: 15%;
+}
+
+.three {
+  width: 25%;
+}
+
+.four {
+  width: 10%;
+}
+
+.spark {
+  width: 120px;
+  background-color: #f7f7f7;
+  float: right;
 }
 
 .header {
   font-weight: 700;
+}
+
+@media only screen and (max-width: 600px) {
+  .one {
+    width: 30%;
+  }
+
+  .two {
+    width: 20%;
+  }
+
+  .three {
+    width: 30%;
+  }
+
+  .four {
+    width: 20%;
+  }
+    .spark {
+        display: none;
+    }
 }
 
 </style>
@@ -29,108 +71,235 @@ body {
 <body>
   <div id="table">
     <div class="row">
-      <div class="cell header">Brand or Vehicle</div>
-      <div class="cell header">Count</div>
-      <div class="cell header">Average Year</div>
-      <div class="cell header">Top Reason for Towing</div>
+      <div class="cell header one">Brand or Vehicle</div>
+      <div class="cell header two">Count</div>
+      <div class="cell header three">Top Reason for Towing</div>
+      <div class="cell header four">Average Year</div>
+      <div class="cell header spark"></div>
     </div>
     <div class="row">
-      <div class="cell">Cadillac</div>
-      <div class="cell">88</div>
-      <div class="cell">2000</div>
-      <div class="cell">Arrest</div>
+      <div class="cell one">Cadillac</div>
+      <div class="cell two">88</div>
+      <div class="cell three">Arrest</div>
+      <div class="cell four">2000</div>
+      <div class="cell spark first"></div>
     </div>
     <div class="row">
-      <div class="cell">Lexus</div>
-      <div class="cell">40</div>
-      <div class="cell">1999</div>
-      <div class="cell">Abandoned</div>
+      <div class="cell one">Lexus</div>
+      <div class="cell two">40</div>
+      <div class="cell three">Abandoned</div>
+      <div class="cell four">1999</div>
+      <div class="cell spark second"></div>
     </div>
     <div class="row">
-      <div class="cell">Mercedes</div>
-      <div class="cell">38</div>
-      <div class="cell">1999</div>
-      <div class="cell">Abandoned</div>
+      <div class="cell one">Mercedes</div>
+      <div class="cell two">38</div>
+      <div class="cell three">Abandoned</div>
+      <div class="cell four">1999</div>
     </div>
     <div class="row">
-      <div class="cell">BMW</div>
-      <div class="cell">37</div>
-      <div class="cell">2001</div>
-      <div class="cell">Abandoned</div>
+      <div class="cell one">BMW</div>
+      <div class="cell two">37</div>
+      <div class="cell three">Abandoned</div>
+      <div class="cell four">2001</div>
     </div>
     <div class="row">
-      <div class="cell">Infiniti</div>
-      <div class="cell">35</div>
-      <div class="cell">2001</div>
-      <div class="cell">Accident</div>
+      <div class="cell one">Infiniti</div>
+      <div class="cell two">35</div>
+      <div class="cell three">Accident</div>
+      <div class="cell four">2001</div>
     </div>
     <div class="row">
-      <div class="cell">Trailer</div>
-      <div class="cell">33</div>
-      <div class="cell">2003</div>
-      <div class="cell">Abandoned</div>
+      <div class="cell one">Trailer</div>
+      <div class="cell two">33</div>
+      <div class="cell three">Abandoned</div>
+      <div class="cell four">2003</div>
     </div>
     <div class="row">
-      <div class="cell">Audi</div>
-      <div class="cell">18</div>
-      <div class="cell">2002</div>
-      <div class="cell">Abandoned</div>
+      <div class="cell one">Audi</div>
+      <div class="cell two">18</div>
+      <div class="cell three">Abandoned</div>
+      <div class="cell four">2002</div>
     </div>
     <div class="row">
-      <div class="cell">Jaguar</div>
-      <div class="cell">8</div>
-      <div class="cell">1998</div>
-      <div class="cell">Abandoned</div>
+      <div class="cell one">Jaguar</div>
+      <div class="cell two">8</div>
+      <div class="cell three">Abandoned</div>
+      <div class="cell four">1998</div>
     </div>
     <div class="row">
-      <div class="cell">Harley-Davidson</div>
-      <div class="cell">5</div>
-      <div class="cell">2005</div>
-      <div class="cell">Abandoned</div>
+      <div class="cell one">Harley-Davidson</div>
+      <div class="cell two">5</div>
+      <div class="cell three">Abandoned</div>
+      <div class="cell four">2005</div>
     </div>
     <div class="row">
-      <div class="cell">Motor Home</div>
-      <div class="cell">4</div>
-      <div class="cell">1991</div>
-      <div class="cell">Abandoned</div>
+      <div class="cell one">Motor Home</div>
+      <div class="cell two">4</div>
+      <div class="cell three">Abandoned</div>
+      <div class="cell four">1991</div>
     </div>
     <div class="row">
-      <div class="cell">MINI</div>
-      <div class="cell">3</div>
-      <div class="cell">2007</div>
-      <div class="cell">Accident</div>
+      <div class="cell one">MINI</div>
+      <div class="cell two">3</div>
+      <div class="cell three">Accident</div>
+      <div class="cell four">2007</div>
     </div>
     <div class="row">
-      <div class="cell">Motorcycle</div>
-      <div class="cell">1</div>
-      <div class="cell">2000</div>
-      <div class="cell">Abandoned</div>
+      <div class="cell one">Motorcycle</div>
+      <div class="cell two">1</div>
+      <div class="cell three">Abandoned</div>
+      <div class="cell four">2000</div>
     </div>
     <div class="row">
-      <div class="cell">Boat</div>
-      <div class="cell">1</div>
-      <div class="cell">1988</div>
-      <div class="cell">Abandoned</div>
+      <div class="cell one">Boat</div>
+      <div class="cell two">1</div>
+      <div class="cell three">Abandoned</div>
+      <div class="cell four">1988</div>
     </div>
     <div class="row">
-      <div class="cell">Vespa</div>
-      <div class="cell">1</div>
-      <div class="cell">2015</div>
-      <div class="cell">Stolen</div>
+      <div class="cell one">Vespa</div>
+      <div class="cell two">1</div>
+      <div class="cell three">Stolen</div>
+      <div class="cell four">2015</div>
     </div>
     <div class="row">
-      <div class="cell">Porsche</div>
-      <div class="cell">1</div>
-      <div class="cell">1983</div>
-      <div class="cell">Other</div>
+      <div class="cell one">Porsche</div>
+      <div class="cell two">1</div>
+      <div class="cell three">Other</div>
+      <div class="cell four">1983</div>
     </div>
     <div class="row">
-      <div class="cell">smart</div>
-      <div class="cell">1</div>
-      <div class="cell">2010</div>
-      <div class="cell">Arrest</div>
+      <div class="cell one">smart</div>
+      <div class="cell two">1</div>
+      <div class="cell three">Arrest</div>
+      <div class="cell four">2010</div>
     </div>
   </div>
-</body>
 
+<script src="https://d3js.org/d3.v4.min.js"></script>
+
+<script>
+
+//SVG setup
+var margin = {top: 5, right: 0, bottom: 0, left: 0},
+      width = 120 - margin.left - margin.right,
+      height = 25 - margin.top - margin.bottom;
+
+var x = d3.scaleLinear()
+    .domain([1973, 2018])
+    .range([margin.left, width - margin.right]);
+
+var y = d3.scaleLinear()
+    .domain([0, 0.1])
+    .range([height - margin.bottom, margin.top]);
+
+//set up svg
+var svg = d3.select(".first")
+  .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform",
+            `translate(${margin.left}, ${margin.top})`);
+
+// x axis
+svg.append("g")
+    .attr("class", "axis axis--x")
+    .attr("transform", "translate(0," + (height - margin.bottom) + ")")
+    .call(d3.axisBottom(x).ticks(0).tickSizeOuter(0));
+
+var dataFile = "cadillac.csv"
+
+//number of bins for histogram
+var nbins = 46;
+
+d3.csv(dataFile, function(data) {
+  data.forEach(function(d) {
+      d.Year = +d.Year;
+  });
+
+  //histogram binning
+  var histogram = d3.histogram()
+    .domain(x.domain())
+    .thresholds(x.ticks(nbins))
+    .value(function(d) { return d.Year;} );
+
+  //binning data and filtering out empty bins
+  var bins = histogram(data).filter(d => d.length>0)
+
+  svg.insert("g", "*")
+      .attr("fill", "#8a89a6")
+    .selectAll("rect")
+    .data(bins)
+    .enter().append("rect")
+      .attr("x", function(d) { return x(d.x0) + 1; })
+      .attr("y", function(d) { return y(d.length / data.length) - 2; })
+      .attr("width", function(d) { return x(d.x1) - x(d.x0) - .5; })
+      .attr("height", function(d) { return y(0) - y(d.length / data.length); });
+
+});
+
+</script>
+
+<script>
+
+//SVG setup
+var margin2 = {top: 5, right: 0, bottom: 0, left: 0},
+      width2 = 120 - margin2.left - margin2.right,
+      height2 = 25 - margin2.top - margin2.bottom;
+
+var x2 = d3.scaleLinear()
+    .domain([1973, 2018])
+    .range([margin2.left, width2 - margin2.right]);
+
+var y2 = d3.scaleLinear()
+    .domain([0, 0.1])
+    .range([height2 - margin2.bottom, margin2.top]);
+
+//set up svg
+var svg2 = d3.select(".second")
+  .append("svg")
+    .attr("width", width2 + margin2.left + margin2.right)
+    .attr("height", height2 + margin2.top + margin2.bottom)
+  .append("g")
+    .attr("transform",
+            `translate(${margin2.left}, ${margin2.top})`);
+
+
+
+var dataFile2 = "lexus.csv"
+
+//number of bins for histogram
+var nbins2 = 46;
+
+d3.csv(dataFile2, function(data2) {
+  data2.forEach(function(d) {
+      d.Year = +d.Year;
+  });
+
+  //histogram binning
+  var histogram2 = d3.histogram()
+    .domain(x2.domain())
+    .thresholds(x2.ticks(nbins2))
+    .value(function(d) { return d.Year;} );
+
+  //binning data and filtering out empty bins
+  var bins2 = histogram2(data2).filter(d => d.length>0)
+
+  svg2.insert("g", "*")
+      .attr("fill", "#8a89a6")
+    .selectAll("rect")
+    .data(bins2)
+    .enter().append("rect")
+      .attr("x", function(d) { return x2(d.x0) + 1; })
+      .attr("y", function(d) { return y2(d.length / data2.length) - 2; })
+      .attr("width", function(d) { return x2(d.x1) - x2(d.x0) - .5; })
+      .attr("height", function(d) { return y2(0) - y2(d.length / data2.length); });
+
+});
+
+</script>
+
+</body>
 </html>
