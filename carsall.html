@@ -46,7 +46,7 @@ p {
 <body>
 
 <p id="title">Clunkers and Cadillacs</p>
-<p id="subtitle">More than 5,200 cars were put up for auction at the Kansas City Tow Lot in the last year. The average model year was 2002, but some were much older or newer. Explore those outliers here.</p>
+<p id="subtitle">More than 5,200 cars were put up for auction at the Kansas City Tow Lot in the last year. The average model year was 2002, but some were much older or newer.<br/><br/> Roll over to explore those cars and why they were towed.</p>
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
 
@@ -152,8 +152,8 @@ var gradient = defs.append("linearGradient")
  .attr("id", "svgGradient")
  .attr("x1", "0%")
  .attr("x2", "0%")
- .attr("y1", "0%")
- .attr("y2", "100%");
+ .attr("y1", "100%")
+ .attr("y2", "0%");
 
 gradient.append("stop")
  .attr('class', 'start')
