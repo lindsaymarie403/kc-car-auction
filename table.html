@@ -48,9 +48,10 @@ body {
 }
 
 .spark {
-  width: 120px;
+  width: 130px;
   background-color: #f7f7f7;
   float: left;
+  padding: 5px 5px 0px 5px;
 }
 
 .header {
@@ -67,7 +68,7 @@ body {
   font-size: .8em;
 }
 
-@media only screen and (max-width: 625px) {
+@media only screen and (max-width: 725px) {
   .one {
     width: 30%;
   }
@@ -100,7 +101,7 @@ body {
     <div class="row">
       <div class="cell header one">Brand</div>
       <div class="cell header two">Count</div>
-      <div class="cell header three">Top Reason for Towing</div>
+      <div class="cell header three">Most Common Reason for Towing</div>
       <div class="cell header four">Year
         <br />
         <span class="sub">Average</span>
@@ -167,13 +168,13 @@ body {
 <script>
 
 //SVG setup
-var margin = {top: 5, right: 0, bottom: 0, left: 0},
-      width = 120 - margin.left - margin.right,
-      height = 25 - margin.top - margin.bottom;
+var margin = {top: 5, right: 0, bottom: 5, left: 0},
+      width = 130 - margin.left - margin.right,
+      height = 45 - margin.top - margin.bottom;
 
 var x = d3.scaleLinear()
-    .domain([1973, 2019])
-    .range([margin.left, width - margin.right]);
+    .domain([1982, 2016])
+    .range([margin.left + 15, width - margin.right]);
 
 var y = d3.scaleLinear()
     .domain([0, 0.1])
@@ -193,6 +194,54 @@ svg.append("g")
     .attr("class", "axis axis--x")
     .attr("transform", "translate(0," + (height - margin.bottom) + ")")
     .call(d3.axisBottom(x).ticks(0).tickSizeOuter(0));
+
+// y axis labels
+//bottom label
+svg.append("text")
+  .attr("transform",
+        "translate(0,32)")
+  .text("0%")
+  .attr("font-size", "9px");
+
+//top label
+svg.append("text")
+  .attr("transform",
+        "translate(-1,2)")
+  .text("10% of cars")
+  .attr("font-size", "9px");
+
+//left line
+svg.append("line")
+  .attr("x1", 50)
+  .attr("y1", -3)
+  .attr("x2", 85)
+  .attr("y2", -3)
+  .attr("stroke-width", 1)
+  .attr("stroke", "#9e9e9e");
+
+//right line
+svg.append("line")
+  .attr("x1", 93)
+  .attr("y1", -3)
+  .attr("x2", 130)
+  .attr("y2", -3)
+  .attr("stroke-width", 1)
+  .attr("stroke", "#9e9e9e");
+
+// x axis labels
+// left label
+svg.append("text")
+  .attr("transform",
+        "translate(14,40)")
+  .text("1982")
+  .attr("font-size", "9px");
+
+// right label
+svg.append("text")
+  .attr("transform",
+        "translate(110,40)")
+  .text("2015")
+  .attr("font-size", "9px");
 
 var dataFile = "data/cadillac.csv"
 
@@ -235,7 +284,7 @@ var margin2 = {top: 5, right: 0, bottom: 0, left: 0},
       height2 = 25 - margin2.top - margin2.bottom;
 
 var x2 = d3.scaleLinear()
-    .domain([1973, 2019])
+    .domain([1982, 2016])
     .range([margin2.left, width2 - margin2.right]);
 
 var y2 = d3.scaleLinear()
@@ -251,7 +300,10 @@ var svg2 = d3.select(".second")
     .attr("transform",
             `translate(${margin2.left}, ${margin2.top})`);
 
-
+svg2.append("g")
+    .attr("class", "axis axis--x")
+    .attr("transform", "translate(0," + (height2 - margin2.bottom) + ")")
+    .call(d3.axisBottom(x2).ticks(0).tickSizeOuter(0));
 
 var dataFile2 = "data/lexus.csv"
 
@@ -294,7 +346,7 @@ var margin3 = {top: 5, right: 0, bottom: 0, left: 0},
       height3 = 25 - margin3.top - margin3.bottom;
 
 var x3 = d3.scaleLinear()
-    .domain([1973, 2019])
+    .domain([1982, 2016])
     .range([margin3.left, width3 - margin3.right]);
 
 var y3 = d3.scaleLinear()
@@ -309,6 +361,11 @@ var svg3 = d3.select(".third")
   .append("g")
     .attr("transform",
             `translate(${margin3.left}, ${margin3.top})`);
+
+svg3.append("g")
+    .attr("class", "axis axis--x")
+    .attr("transform", "translate(0," + (height3 - margin3.bottom) + ")")
+    .call(d3.axisBottom(x3).ticks(0).tickSizeOuter(0));
 
 var dataFile3 = "data/mercedes.csv"
 
@@ -351,7 +408,7 @@ var margin4 = {top: 5, right: 0, bottom: 0, left: 0},
       height4 = 25 - margin4.top - margin4.bottom;
 
 var x4 = d3.scaleLinear()
-    .domain([1973, 2019])
+    .domain([1982, 2016])
     .range([margin4.left, width4 - margin4.right]);
 
 var y4 = d3.scaleLinear()
@@ -366,6 +423,11 @@ var svg4 = d3.select(".fourth")
   .append("g")
     .attr("transform",
             `translate(${margin4.left}, ${margin4.top})`);
+
+svg4.append("g")
+    .attr("class", "axis axis--x")
+    .attr("transform", "translate(0," + (height4 - margin4.bottom) + ")")
+    .call(d3.axisBottom(x4).ticks(0).tickSizeOuter(0));
 
 var dataFile4 = "data/bmw.csv"
 
@@ -408,7 +470,7 @@ var margin5 = {top: 5, right: 0, bottom: 0, left: 0},
       height5 = 25 - margin5.top - margin5.bottom;
 
 var x5 = d3.scaleLinear()
-    .domain([1973, 2019])
+    .domain([1982, 2016])
     .range([margin5.left, width5 - margin5.right]);
 
 var y5 = d3.scaleLinear()
@@ -423,6 +485,11 @@ var svg5 = d3.select(".fifth")
   .append("g")
     .attr("transform",
             `translate(${margin5.left}, ${margin5.top})`);
+
+svg5.append("g")
+    .attr("class", "axis axis--x")
+    .attr("transform", "translate(0," + (height5 - margin5.bottom) + ")")
+    .call(d3.axisBottom(x5).ticks(0).tickSizeOuter(0));
 
 var dataFile5 = "data/infiniti.csv"
 
@@ -465,7 +532,7 @@ var margin7 = {top: 5, right: 0, bottom: 0, left: 0},
       height7 = 25 - margin7.top - margin7.bottom;
 
 var x7 = d3.scaleLinear()
-    .domain([1973, 2019])
+    .domain([1982, 2016])
     .range([margin7.left, width7 - margin7.right]);
 
 var y7 = d3.scaleLinear()
@@ -480,6 +547,11 @@ var svg7 = d3.select(".seventh")
   .append("g")
     .attr("transform",
             `translate(${margin7.left}, ${margin7.top})`);
+
+svg7.append("g")
+    .attr("class", "axis axis--x")
+    .attr("transform", "translate(0," + (height7 - margin7.bottom) + ")")
+    .call(d3.axisBottom(x7).ticks(0).tickSizeOuter(0));
 
 var dataFile7 = "data/audi.csv"
 
@@ -517,55 +589,60 @@ d3.csv(dataFile7, function(data7) {
 <script>
 
 //SVG setup
-var margin7 = {top: 5, right: 0, bottom: 0, left: 0},
-      width7 = 120 - margin7.left - margin7.right,
-      height7 = 25 - margin7.top - margin7.bottom;
+var margin8 = {top: 5, right: 0, bottom: 0, left: 0},
+      width8 = 120 - margin8.left - margin8.right,
+      height8 = 25 - margin8.top - margin8.bottom;
 
-var x7 = d3.scaleLinear()
-    .domain([1973, 2019])
-    .range([margin7.left, width7 - margin7.right]);
+var x8 = d3.scaleLinear()
+    .domain([1982, 2016])
+    .range([margin8.left, width8 - margin8.right]);
 
-var y7 = d3.scaleLinear()
+var y8 = d3.scaleLinear()
     .domain([0, 0.1])
-    .range([height7 - margin7.bottom, margin7.top]);
+    .range([height8 - margin8.bottom, margin8.top]);
 
 //set up svg
 var svg8 = d3.select(".eighth")
   .append("svg")
-    .attr("width", width7 + margin7.left + margin7.right)
-    .attr("height", height7 + margin7.top + margin7.bottom)
+    .attr("width", width8 + margin8.left + margin8.right)
+    .attr("height", height8 + margin8.top + margin8.bottom)
   .append("g")
     .attr("transform",
-            `translate(${margin7.left}, ${margin7.top})`);
+            `translate(${margin8.left}, ${margin8.top})`);
+
+svg8.append("g")
+    .attr("class", "axis axis--x")
+    .attr("transform", "translate(0," + (height8 - margin8.bottom) + ")")
+    .call(d3.axisBottom(x8).ticks(0).tickSizeOuter(0));
 
 var dataFile8 = "data/jaguar.csv"
 
 //number of bins for histogram
-var nbins7 = 46;
+var nbins8 = 46;
 
-d3.csv(dataFile8, function(data7) {
-  data7.forEach(function(d) {
+d3.csv(dataFile8, function(data8) {
+  data8.forEach(function(d) {
       d.Year = +d.Year;
   });
 
   //histogram binning
   var histogram8 = d3.histogram()
-    .domain(x7.domain())
-    .thresholds(x7.ticks(nbins7))
+    .domain(x8.domain())
+    .thresholds(x8.ticks(nbins8))
     .value(function(d) { return d.Year;} );
 
   //binning data and filtering out empty bins
-  var bins7 = histogram8(data7).filter(d => d.length>0)
+  var bins8 = histogram8(data8).filter(d => d.length>0)
 
   svg8.insert("g", "*")
       .attr("fill", "#355699")
     .selectAll("rect")
-    .data(bins7)
+    .data(bins8)
     .enter().append("rect")
-      .attr("x", function(d) { return x7(d.x0); })
-      .attr("y", function(d) { return y7(d.length / data7.length); })
-      .attr("width", function(d) { return x7(d.x1) - x7(d.x0) - .5; })
-      .attr("height", function(d) { return y7(0) - y7(d.length / data7.length); });
+      .attr("x", function(d) { return x8(d.x0); })
+      .attr("y", function(d) { return y8(d.length / data8.length); })
+      .attr("width", function(d) { return x8(d.x1) - x8(d.x0) - .5; })
+      .attr("height", function(d) { return y8(0) - y8(d.length / data8.length); });
 
 });
 
