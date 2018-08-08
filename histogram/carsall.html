@@ -27,13 +27,24 @@ p {
 }
 
 #tag {
-  top: 20px;
+  top: 44px;
+  color: #707070;
 }
 
 #sub {
-  top: 50px;
+  top: 25px;
   font-family: 'Open Sans', sans-serif;
   font-size: 12px;
+  color: #707070;
+}
+
+#line {
+  width: 250px;
+  height: 1px;
+  background-color: #f4aa42;
+  top: 85px;
+  left: 130px;
+  position: absolute;
 }
 
 #source {
@@ -44,9 +55,9 @@ p {
 </style>
 
 <body>
-
-<p id="tag">What car is this?</p>
 <p id="sub">Roll over the squares to explore the cars and why they were towed.</p>
+<p id="tag">This car is a</p>
+<div id="line"></div>
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
 
@@ -294,8 +305,8 @@ function tooltipOn(d) {
   let gParent = d3.select(this.parentElement)
   let translateValue = gParent.attr("transform")
 
-  let gX = 170 //translateValue.split(",")[0].split("(")[1]
-  let gY = 31 // height + (+d3.select(this).attr("y")-100)
+  let gX = 125 //translateValue.split(",")[0].split("(")[1]
+  let gY = 55 // height + (+d3.select(this).attr("y")-100)
 
   d3.select(this)
     .classed("selected", true)
@@ -453,8 +464,8 @@ function tooltipOn2(d) {
   let gParent = d3.select(this.parentElement)
   let translateValue = gParent.attr("transform")
 
-  let gX = 170 //translateValue.split(",")[0].split("(")[1]
-  let gY = 31 // height + (+d3.select(this).attr("y")-100)
+  let gX = 125 //translateValue.split(",")[0].split("(")[1]
+  let gY = 55 // height + (+d3.select(this).attr("y")-100)
 
   d3.select(this)
     .classed("selected", true)
